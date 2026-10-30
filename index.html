@@ -9,48 +9,377 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>JARVIS 2.0</title>
-
 <style>
 
-*{box-sizing:border-box}
+* {
 
-body{margin:0;background:#07111e;color:#e8f7ff;font-family:Arial,sans-serif;padding:20px}
+  box-sizing: border-box;
 
-.container{max-width:850px;margin:30px auto;background:#0d1b2a;border:1px solid #174767;border-radius:20px;padding:25px;box-shadow:0 0 35px #087ca044}
+}
 
-h1{text-align:center;color:#56d9ff;letter-spacing:8px}
+:root {
 
-.status{text-align:center;color:#55d9a6;font-size:12px;letter-spacing:3px}
+  --cyan: #39dcff;
 
-.circle{width:110px;height:110px;margin:25px auto;border:3px solid #36cfff;border-radius:50%;display:grid;place-items:center;font-size:40px;color:#56d9ff;box-shadow:0 0 30px #00bfff55}
+  --blue: #087ca8;
 
-h2{color:#56d9ff;font-size:17px}
+  --green: #43ffc1;
 
-#chat,.panel{background:#071421;border-radius:12px;padding:15px;margin:15px 0}
+  --bg: #030914;
 
-#chat{height:210px;overflow-y:auto}
+  --panel: rgba(8, 25, 43, .83);
 
-.message{margin:12px 0;line-height:1.5;overflow-wrap:anywhere}
+}
 
-.user{color:#56d9ff}.jarvis{color:#55d9a6}
+body {
 
-input,select{padding:12px;border-radius:8px;border:1px solid #26749a;background:#071421;color:white;font-size:14px}
+  margin: 0;
 
-input{width:65%;max-width:100%}
+  min-height: 100vh;
 
-button{padding:12px 15px;margin:4px;border:0;border-radius:8px;background:#087ca8;color:white;cursor:pointer}
+  padding: 24px;
 
-button:hover{background:#10a9d7}
+  color: #e5f8ff;
 
-.panel{margin-top:22px}
+  font-family: "Arial", sans-serif;
 
-.item{padding:10px;border-bottom:1px solid #174767;line-height:1.5}
+  background:
 
-.small{font-size:12px;color:#9bb5c8}
+    radial-gradient(ellipse at 50% 0%, #123c59 0%, transparent 55%),
 
-.done{text-decoration:line-through;color:#78909c}
+    radial-gradient(ellipse at 100% 100%, #092a43 0%, transparent 45%),
 
-@media(max-width:550px){.container{padding:15px}input{width:100%}}
+    var(--bg);
+
+}
+
+.container {
+
+  max-width: 1050px;
+
+  margin: 20px auto;
+
+  padding: 30px;
+
+  border: 1px solid #1b7497;
+
+  border-radius: 22px;
+
+  background: rgba(5, 17, 31, .88);
+
+  box-shadow: 0 0 50px #008ac522,
+
+              inset 0 0 30px #087ca811;
+
+  backdrop-filter: blur(15px);
+
+}
+
+h1 {
+
+  text-align: center;
+
+  font-size: 42px;
+
+  letter-spacing: 12px;
+
+  color: var(--cyan);
+
+  text-shadow: 0 0 12px #00cfff,
+
+               0 0 35px #00aaff77;
+
+}
+
+.status {
+
+  text-align: center;
+
+  color: var(--green);
+
+  font-size: 12px;
+
+  letter-spacing: 4px;
+
+  text-shadow: 0 0 10px var(--green);
+
+}
+
+.circle {
+
+  width: 155px;
+
+  height: 155px;
+
+  margin: 30px auto;
+
+  display: grid;
+
+  place-items: center;
+
+  border: 2px solid var(--cyan);
+
+  border-radius: 50%;
+
+  color: white;
+
+  font-size: 55px;
+
+  background: radial-gradient(circle, #123e59, #06111e 70%);
+
+  box-shadow: 0 0 15px var(--cyan),
+
+              0 0 45px #00bfff66,
+
+              inset 0 0 25px #00bfff55;
+
+  animation: pulse 3s ease-in-out infinite;
+
+  position: relative;
+
+}
+
+.circle::before,
+
+.circle::after {
+
+  content: "";
+
+  position: absolute;
+
+  border: 1px solid #36cfff88;
+
+  border-radius: 50%;
+
+}
+
+.circle::before {
+
+  width: 180px;
+
+  height: 180px;
+
+  border-left-color: transparent;
+
+  border-right-color: transparent;
+
+  animation: rotate 8s linear infinite;
+
+}
+
+.circle::after {
+
+  width: 205px;
+
+  height: 205px;
+
+  border-top-color: transparent;
+
+  border-bottom-color: transparent;
+
+  animation: rotate 12s linear infinite reverse;
+
+}
+
+@keyframes pulse {
+
+  0%,100% { box-shadow: 0 0 15px var(--cyan), 0 0 35px #00bfff44; }
+
+  50% { box-shadow: 0 0 30px var(--cyan), 0 0 65px #00bfff88; }
+
+}
+
+@keyframes rotate {
+
+  to { transform: rotate(360deg); }
+
+}
+
+h2 {
+
+  color: var(--cyan);
+
+  font-size: 17px;
+
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+
+}
+
+#chat, .panel {
+
+  padding: 20px;
+
+  margin: 20px 0;
+
+  border: 1px solid #14516e;
+
+  border-radius: 14px;
+
+  background: var(--panel);
+
+  box-shadow: inset 0 0 20px #008ac510;
+
+}
+
+#chat {
+
+  height: 260px;
+
+  overflow-y: auto;
+
+}
+
+.message {
+
+  margin: 13px 0;
+
+  line-height: 1.6;
+
+  overflow-wrap: anywhere;
+
+}
+
+.user {
+
+  color: var(--cyan);
+
+}
+
+.jarvis {
+
+  color: var(--green);
+
+}
+
+input, select {
+
+  padding: 14px;
+
+  border: 1px solid #167ba4;
+
+  border-radius: 10px;
+
+  background: #061321;
+
+  color: white;
+
+  font-size: 14px;
+
+}
+
+input {
+
+  width: 65%;
+
+  max-width: 100%;
+
+}
+
+input:focus {
+
+  outline: none;
+
+  border-color: var(--cyan);
+
+  box-shadow: 0 0 12px #00bfff66;
+
+}
+
+button {
+
+  padding: 13px 18px;
+
+  margin: 5px;
+
+  border: 1px solid #25b9e8;
+
+  border-radius: 9px;
+
+  color: #eaffff;
+
+  background: linear-gradient(135deg, #075274, #087ca8);
+
+  cursor: pointer;
+
+  transition: .2s;
+
+}
+
+button:hover {
+
+  background: #0a9ac8;
+
+  box-shadow: 0 0 18px #00bfff88;
+
+  transform: translateY(-2px);
+
+}
+
+.item {
+
+  padding: 13px;
+
+  margin: 8px 0;
+
+  border-left: 2px solid var(--cyan);
+
+  background: #0b2639;
+
+  border-radius: 5px;
+
+  overflow-wrap: anywhere;
+
+}
+
+.small {
+
+  color: #7399ad;
+
+  font-size: 11px;
+
+  text-align: center;
+
+  letter-spacing: 2px;
+
+}
+
+.done {
+
+  text-decoration: line-through;
+
+  color: #78909c;
+
+}
+
+#chat::-webkit-scrollbar {
+
+  width: 5px;
+
+}
+
+#chat::-webkit-scrollbar-thumb {
+
+  background: #1686aa;
+
+  border-radius: 10px;
+
+}
+
+@media(max-width:600px) {
+
+  body { padding: 10px; }
+
+  .container { padding: 17px; }
+
+  h1 { font-size: 29px; letter-spacing: 7px; }
+
+  input { width: 100%; }
+
+  .circle { margin: 35px auto; }
+
+}
 
 </style>
 
