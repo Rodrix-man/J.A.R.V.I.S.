@@ -6,181 +6,51 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>J.A.R.V.I.S.</title>
+<title>JARVIS 2.0</title>
 
 <style>
 
-* { box-sizing: border-box; }
+*{box-sizing:border-box}
 
-body {
+body{margin:0;background:#07111e;color:#e8f7ff;font-family:Arial,sans-serif;padding:20px}
 
-  margin: 0;
+.container{max-width:850px;margin:30px auto;background:#0d1b2a;border:1px solid #174767;border-radius:20px;padding:25px;box-shadow:0 0 35px #087ca044}
 
-  min-height: 100vh;
+h1{text-align:center;color:#56d9ff;letter-spacing:8px}
 
-  background: #07111e;
+.status{text-align:center;color:#55d9a6;font-size:12px;letter-spacing:3px}
 
-  color: #e8f7ff;
+.circle{width:110px;height:110px;margin:25px auto;border:3px solid #36cfff;border-radius:50%;display:grid;place-items:center;font-size:40px;color:#56d9ff;box-shadow:0 0 30px #00bfff55}
 
-  font-family: Arial, sans-serif;
+h2{color:#56d9ff;font-size:17px}
 
-  display: flex;
+#chat,.panel{background:#071421;border-radius:12px;padding:15px;margin:15px 0}
 
-  justify-content: center;
+#chat{height:210px;overflow-y:auto}
 
-  align-items: center;
+.message{margin:12px 0;line-height:1.5;overflow-wrap:anywhere}
 
-  padding: 20px;
+.user{color:#56d9ff}.jarvis{color:#55d9a6}
 
-}
+input,select{padding:12px;border-radius:8px;border:1px solid #26749a;background:#071421;color:white;font-size:14px}
 
-.container {
+input{width:65%;max-width:100%}
 
-  width: 100%;
+button{padding:12px 15px;margin:4px;border:0;border-radius:8px;background:#087ca8;color:white;cursor:pointer}
 
-  max-width: 750px;
+button:hover{background:#10a9d7}
 
-  text-align: center;
+.panel{margin-top:22px}
 
-  background: #0d1b2a;
+.item{padding:10px;border-bottom:1px solid #174767;line-height:1.5}
 
-  border: 1px solid #174767;
+.small{font-size:12px;color:#9bb5c8}
 
-  border-radius: 20px;
+.done{text-decoration:line-through;color:#78909c}
 
-  padding: 30px;
-
-  box-shadow: 0 0 35px #087ca044;
-
-}
-
-h1 {
-
-  color: #56d9ff;
-
-  letter-spacing: 8px;
-
-  font-size: 38px;
-
-}
-
-.status {
-
-  color: #55d9a6;
-
-  font-size: 13px;
-
-  letter-spacing: 3px;
-
-}
-
-.circle {
-
-  width: 145px;
-
-  height: 145px;
-
-  margin: 30px auto;
-
-  border: 3px solid #36cfff;
-
-  border-radius: 50%;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  font-size: 48px;
-
-  color: #56d9ff;
-
-  box-shadow: 0 0 30px #00bfff55;
-
-}
-
-#chat {
-
-  height: 220px;
-
-  overflow-y: auto;
-
-  background: #071421;
-
-  border-radius: 12px;
-
-  padding: 15px;
-
-  text-align: left;
-
-  margin-bottom: 15px;
-
-}
-
-.message {
-
-  margin: 12px 0;
-
-  line-height: 1.5;
-
-}
-
-.user { color: #56d9ff; }
-
-.jarvis { color: #55d9a6; }
-
-input {
-
-  width: 72%;
-
-  padding: 14px;
-
-  border-radius: 9px;
-
-  border: 1px solid #26749a;
-
-  background: #071421;
-
-  color: white;
-
-  font-size: 15px;
-
-}
-
-button {
-
-  padding: 13px 17px;
-
-  margin: 5px;
-
-  border: 0;
-
-  border-radius: 9px;
-
-  background: #087ca8;
-
-  color: white;
-
-  cursor: pointer;
-
-  font-size: 14px;
-
-}
-
-button:hover { background: #10a9d7; }
-
-.notes {
-
-  color: #a9bfd0;
-
-  font-size: 13px;
-
-  margin-top: 20px;
-
-}
+@media(max-width:550px){.container{padding:15px}input{width:100%}}
 
 </style>
 
@@ -190,222 +60,465 @@ button:hover { background: #10a9d7; }
 
 <div class="container">
 
-  <h1>J.A.R.V.I.S.</h1>
+<h1>J.A.R.V.I.S.</h1>
 
-  <div class="status" id="status">● SISTEMA INICIADO</div>
+<div class="status" id="status">● SISTEMA 2.0 INICIADO</div>
 
-  <div class="circle">J</div>
+<div class="circle">J</div>
 
-  <div id="chat">
+<div id="chat">
 
-    <div class="message jarvis">
+<div class="message jarvis">JARVIS: Memoria avanzada inicializada. ¿Qué necesitas?</div>
 
-      JARVIS: Buenos días. Sistemas inicializados.
+</div>
 
-      ¿En qué puedo ayudarte?
+<input id="message" placeholder="Escribe una orden...">
 
-    </div>
+<button onclick="sendMessage()">Enviar</button>
 
-  </div>
+<button onclick="listen()">🎙 Hablar</button>
 
-  <input id="message" placeholder="Escribe un mensaje...">
+<div class="panel">
 
-  <button onclick="sendMessage()">Enviar</button>
+<h2>🧠 Memoria personal</h2>
 
-  <button onclick="listen()">🎙 Hablar</button>
+<div id="memory"></div>
 
-  <div class="notes">
+<button onclick="showMemory()">Actualizar memoria</button>
 
-    ASISTENTE PERSONAL · PROTOTIPO 1.0
+</div>
 
-  </div>
+<div class="panel">
+
+<h2>📋 Tareas</h2>
+
+<div id="tasks"></div>
+
+</div>
+
+<div class="panel">
+
+<h2>📚 Proyectos</h2>
+
+<div id="projects"></div>
+
+</div>
+
+<div class="small" style="text-align:center">JARVIS PERSONAL ASSISTANT · VERSION 2.0</div>
 
 </div>
 
 <script>
 
-const chat = document.getElementById("chat");
+const chat=document.getElementById("chat");
 
-const input = document.getElementById("message");
+const input=document.getElementById("message");
 
-const statusText = document.getElementById("status");
+const statusText=document.getElementById("status");
 
-function addMessage(text, type) {
+function getData(key){
 
-  const div = document.createElement("div");
+ try{return JSON.parse(localStorage.getItem(key)||"[]")}
 
-  div.className = "message " + type;
-
-  div.textContent = (type === "user" ? "TÚ: " : "JARVIS: ") + text;
-
-  chat.appendChild(div);
-
-  chat.scrollTop = chat.scrollHeight;
+ catch{return []}
 
 }
 
-function speak(text) {
+function saveData(key,data){
 
-  if (!("speechSynthesis" in window)) return;
-
-  window.speechSynthesis.cancel();
-
-  const voice = new SpeechSynthesisUtterance(text);
-
-  voice.lang = "es-ES";
-
-  voice.rate = 1;
-
-  window.speechSynthesis.speak(voice);
+ localStorage.setItem(key,JSON.stringify(data));
 
 }
 
-function reply(text) {
+function addMessage(text,type){
 
-  addMessage(text, "jarvis");
+ const div=document.createElement("div");
 
-  speak(text);
+ div.className="message "+type;
 
-}
+ div.textContent=(type==="user"?"TÚ: ":"JARVIS: ")+text;
 
-function sendMessage() {
+ chat.appendChild(div);
 
-  const text = input.value.trim();
-
-  if (!text) return;
-
-  addMessage(text, "user");
-
-  input.value = "";
-
-  const command = text.toLowerCase();
-
-  let response;
-
-  if (command.includes("hola")) {
-
-    response = "Hola. Es un placer volver a escucharte.";
-
-  } else if (command.includes("cómo estás")) {
-
-    response = "Todos mis sistemas funcionan correctamente.";
-
-  } else if (command.includes("hora")) {
-
-    response = "La hora actual es " +
-
-      new Date().toLocaleTimeString("es-ES");
-
-  } else if (command.includes("fecha")) {
-
-    response = "Hoy es " +
-
-      new Date().toLocaleDateString("es-ES");
-
-  } else if (command.includes("ayuda")) {
-
-    response = "Puedes preguntarme la hora, la fecha o pedirme que guarde una nota.";
-
-  } else if (command.startsWith("guarda nota ")) {
-
-    const note = text.substring(12).trim();
-
-    if (note) {
-
-      const notes = JSON.parse(localStorage.getItem("jarvis_notes") || "[]");
-
-      notes.push(note);
-
-      localStorage.setItem("jarvis_notes", JSON.stringify(notes));
-
-      response = "Nota guardada correctamente.";
-
-    } else {
-
-      response = "Dime qué nota quieres guardar.";
-
-    }
-
-  } else if (command.includes("mis notas")) {
-
-    const notes = JSON.parse(localStorage.getItem("jarvis_notes") || "[]");
-
-    response = notes.length
-
-      ? "Tus notas son: " + notes.join(". ")
-
-      : "Todavía no tienes notas guardadas.";
-
-  } else {
-
-    response = "Todavía estoy aprendiendo. Esa función estará disponible en futuras versiones.";
-
-  }
-
-  setTimeout(() => reply(response), 300);
+ chat.scrollTop=chat.scrollHeight;
 
 }
 
-input.addEventListener("keydown", function(event) {
+function speak(text){
 
-  if (event.key === "Enter") sendMessage();
+ if(!("speechSynthesis" in window))return;
 
-});
+ speechSynthesis.cancel();
 
-function listen() {
+ const voice=new SpeechSynthesisUtterance(text);
 
-  const Recognition = window.SpeechRecognition ||
+ voice.lang="es-ES";
 
-                      window.webkitSpeechRecognition;
-
-  if (!Recognition) {
-
-    reply("El reconocimiento de voz no está disponible en este navegador.");
-
-    return;
-
-  }
-
-  const recognition = new Recognition();
-
-  recognition.lang = "es-ES";
-
-  recognition.interimResults = false;
-
-  statusText.textContent = "● ESCUCHANDO...";
-
-  recognition.onresult = function(event) {
-
-    input.value = event.results[0][0].transcript;
-
-    statusText.textContent = "● SISTEMA INICIADO";
-
-    sendMessage();
-
-  };
-
-  recognition.onerror = function() {
-
-    statusText.textContent = "● ERROR DE MICRÓFONO";
-
-  };
-
-  recognition.onend = function() {
-
-    if (statusText.textContent === "● ESCUCHANDO...") {
-
-      statusText.textContent = "● SISTEMA INICIADO";
-
-    }
-
-  };
-
-  recognition.start();
+ speechSynthesis.speak(voice);
 
 }
+
+function reply(text){
+
+ addMessage(text,"jarvis");
+
+ speak(text);
+
+}
+
+function showMemory(){
+
+ const memories=getData("jarvis_memories");
+
+ const oldNotes=getData("jarvis_notes");
+
+ const area=document.getElementById("memory");
+
+ area.textContent="";
+
+ if(!memories.length&&!oldNotes.length){
+
+  area.textContent="Todavía no hay recuerdos guardados.";
+
+  return;
+
+ }
+
+ memories.forEach((m,i)=>{
+
+  const div=document.createElement("div");
+
+  div.className="item";
+
+  div.textContent=(i+1)+". ["+m.category+"] "+m.text;
+
+  area.appendChild(div);
+
+ });
+
+ oldNotes.forEach((n,i)=>{
+
+  const div=document.createElement("div");
+
+  div.className="item";
+
+  div.textContent="Nota antigua "+(i+1)+": "+n;
+
+  area.appendChild(div);
+
+ });
+
+}
+
+function showTasks(){
+
+ const area=document.getElementById("tasks");
+
+ area.textContent="";
+
+ const tasks=getData("jarvis_tasks");
+
+ if(!tasks.length){area.textContent="No tienes tareas.";return}
+
+ tasks.forEach((t,i)=>{
+
+  const div=document.createElement("div");
+
+  div.className="item"+(t.done?" done":"");
+
+  div.textContent=(i+1)+". "+t.text+(t.done?" ✓":"");
+
+  area.appendChild(div);
+
+ });
+
+}
+
+function showProjects(){
+
+ const area=document.getElementById("projects");
+
+ area.textContent="";
+
+ const projects=getData("jarvis_projects");
+
+ if(!projects.length){area.textContent="No tienes proyectos.";return}
+
+ projects.forEach((p,i)=>{
+
+  const div=document.createElement("div");
+
+  div.className="item";
+
+  div.textContent=(i+1)+". "+p;
+
+  area.appendChild(div);
+
+ });
+
+}
+
+function refresh(){
+
+ showMemory();showTasks();showProjects();
+
+}
+
+function sendMessage(){
+
+ const text=input.value.trim();
+
+ if(!text)return;
+
+ input.value="";
+
+ addMessage(text,"user");
+
+ const command=text.toLowerCase();
+
+ let response="Todavía no conozco esa orden. Prueba a decir AYUDA para ver mis comandos.";
+
+if(command==="ayuda"||command.includes("qué puedes hacer")){
+
+ response="Puedo guardar recuerdos, notas, tareas y proyectos. También puedo consultar la fecha y la hora. Di: guarda recuerdo categoría contenido, guarda tarea contenido o guarda proyecto contenido.";
+
+}
+
+else if(command.includes("hola")){
+
+ response="Hola. Todos mis sistemas funcionan correctamente.";
+
+}
+
+else if(command.includes("hora")){
+
+ response="Son las "+new Date().toLocaleTimeString("es-ES");
+
+}
+
+else if(command.includes("fecha")){
+
+ response="Hoy es "+new Date().toLocaleDateString("es-ES");
+
+}
+
+else if(command.startsWith("guarda recuerdo ")){
+
+ const content=text.substring(16).trim();
+
+ const split=content.indexOf(" ");
+
+ if(split<1){
+
+  response="Indica una categoría y después el recuerdo. Por ejemplo: guarda recuerdo historia me interesa el Imperio español.";
+
+ }else{
+
+  const memories=getData("jarvis_memories");
+
+  memories.push({category:content.substring(0,split),text:content.substring(split+1)});
+
+  saveData("jarvis_memories",memories);
+
+  response="Recuerdo guardado en mi memoria.";
+
+ }
+
+}
+
+else if(command.startsWith("guarda nota ")){
+
+ const note=text.substring(12).trim();
+
+ if(note){
+
+  const notes=getData("jarvis_notes");
+
+  notes.push(note);saveData("jarvis_notes",notes);
+
+  response="Nota guardada correctamente.";
+
+ }else response="Dime qué nota quieres guardar.";
+
+}
+
+else if(command.includes("mis recuerdos")||command.includes("qué recuerdas")){
+
+ const memories=getData("jarvis_memories");
+
+ const notes=getData("jarvis_notes");
+
+ response=memories.length||notes.length
+
+ ? "Tengo "+memories.length+" recuerdos y "+notes.length+" notas antiguas guardadas. Puedes consultarlos en el panel de memoria."
+
+ : "Todavía no tengo recuerdos guardados.";
+
+}
+
+else if(command.includes("mis notas")){
+
+ const notes=getData("jarvis_notes");
+
+ response=notes.length?"Tus notas son: "+notes.join(". "):"No tienes notas guardadas.";
+
+}
+
+else if(command.startsWith("guarda tarea ")){
+
+ const task=text.substring(13).trim();
+
+ if(task){
+
+  const tasks=getData("jarvis_tasks");
+
+  tasks.push({text:task,done:false});
+
+  saveData("jarvis_tasks",tasks);
+
+  response="Tarea añadida a tu lista.";
+
+ }else response="¿Qué tarea quieres añadir?";
+
+}
+
+else if(command.includes("mis tareas")){
+
+ const tasks=getData("jarvis_tasks");
+
+ response=tasks.length?"Tienes "+tasks.filter(t=>!t.done).length+" tareas pendientes. Consulta el panel de tareas.":"No tienes tareas.";
+
+}
+
+else if(command.startsWith("completa tarea ")){
+
+ const number=parseInt(command.substring(15).trim(),10);
+
+ const tasks=getData("jarvis_tasks");
+
+ if(number>=1&&number<=tasks.length){
+
+  tasks[number-1].done=true;
+
+  saveData("jarvis_tasks",tasks);
+
+  response="Tarea "+number+" marcada como completada.";
+
+ }else response="No encuentro esa tarea. Consulta primero tu lista.";
+
+}
+
+else if(command.startsWith("guarda proyecto ")){
+
+ const project=text.substring(15).trim();
+
+ if(project){
+
+  const projects=getData("jarvis_projects");
+
+  projects.push(project);saveData("jarvis_projects",projects);
+
+  response="Proyecto guardado correctamente.";
+
+ }else response="Dime el nombre del proyecto.";
+
+}
+
+else if(command.includes("mis proyectos")){
+
+ const projects=getData("jarvis_projects");
+
+ response=projects.length?"Tienes "+projects.length+" proyectos registrados. Consulta el panel de proyectos.":"Todavía no tienes proyectos.";
+
+}
+
+else if(command.startsWith("borra recuerdo ")){
+
+ const number=parseInt(command.substring(14).trim(),10);
+
+ const memories=getData("jarvis_memories");
+
+ if(number>=1&&number<=memories.length){
+
+  memories.splice(number-1,1);
+
+  saveData("jarvis_memories",memories);
+
+  response="Recuerdo eliminado.";
+
+ }else response="No encuentro ese número de recuerdo.";
+
+}
+
+else if(command.startsWith("borra nota ")){
+
+ const number=parseInt(command.substring(11).trim(),10);
+
+ const notes=getData("jarvis_notes");
+
+ if(number>=1&&number<=notes.length){
+
+  notes.splice(number-1,1);saveData("jarvis_notes",notes);
+
+  response="Nota eliminada.";
+
+ }else response="No encuentro esa nota.";
+
+}
+
+setTimeout(()=>{reply(response);refresh()},250);
+
+}
+
+input.addEventListener("keydown",e=>{if(e.key==="Enter")sendMessage()});
+
+function listen(){
+
+ const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+
+ if(!Recognition){reply("El reconocimiento de voz no está disponible.");return}
+
+ const recognition=new Recognition();
+
+ recognition.lang="es-ES";
+
+ recognition.interimResults=false;
+
+ statusText.textContent="● ESCUCHANDO...";
+
+ recognition.onresult=e=>{
+
+  input.value=e.results[0][0].transcript;
+
+  statusText.textContent="● SISTEMA 2.0 INICIADO";
+
+  sendMessage();
+
+ };
+
+ recognition.onerror=()=>{
+
+  statusText.textContent="● ERROR DE MICRÓFONO";
+
+ };
+
+ recognition.onend=()=>{
+
+  if(statusText.textContent==="● ESCUCHANDO...")
+
+   statusText.textContent="● SISTEMA 2.0 INICIADO";
+
+ };
+
+ recognition.start();
+
+}
+
+refresh();
 
 </script>
 
 </body>
 
 </html>
+
